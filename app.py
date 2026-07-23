@@ -1,52 +1,19 @@
-import http.server
-import socketserver
+import gradio as gr
 
-PORT = 7860
+# Define your main function / AI model logic here
+def process_input(text_input):
+    return f"Processed input: '{text_input}' successfully!"
 
-HTML_CONTENT = """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Interface</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #0b0f19;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-    </style>
-</head>
-<body>
-    <iframe 
-        src="https://huggingface.co/spaces/ICML-2026-agent-repro/repro-last-iterate-proximal-logbook" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        allowfullscreen>
-    </iframe>
-</body>
-</html>
-"""
+# Build the user interface
+demo = gr.Interface(
+    fn=process_input,
+    inputs=gr.Textbox(lines=2, placeholder="Enter text here...", label="Input Text"),
+    outputs=gr.Textbox(label="Output Result"),
+    title="My Research paper",
+    description="A standard research paper inside a Docker container."
+)
 
-class Handler(http.server.SimpleHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-Type", "text/html")
-        self.end_headers()
-        self.wfile.write(HTML_CONTENT.encode("utf-8"))
-
+# CRITICAL FOR HUGGING FACE DOCKER:
+# Must bind to server_name="0.0.0.0" and server_port=7860
 if __name__ == "__main__":
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
-        print(f"Serving at port {PORT}")
-        httpd.serve_forever()
+    demo.launch(server_name="0.0.0.0", server_port=7860)
