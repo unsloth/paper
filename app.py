@@ -9,7 +9,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Embedded Space</title>
+    <title>Lookbook</title>
     <style>
         html, body {
             margin: 0;
@@ -28,7 +28,7 @@ HTML_CONTENT = """<!DOCTYPE html>
 </head>
 <body>
     <iframe 
-        src="https://huggingface.co/spaces/ICML-2026-agent-repro/repro-last-iterate-proximal-logbook" 
+        src="https://icml-2026-agent-repro-repro-last-iterate-proxima-04ec26d.static.hf.space" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
         allowfullscreen>
     </iframe>
